@@ -1,5 +1,5 @@
 total 124
-drwxr-xr-x   2 root root 12288 Nov 24 11:12 tin
+drwxr-xr-x   2 root root 12288 Nov 24 11:12 bin
 drwxr-xr-x   4 root root  4096 Nov 27 13:47 boot
 drwxrwxr-x   2 root root  4096 Apr  4  2018 cdrom
 drwxr-xr-x  21 root root  4820 Dec  2 14:09 dev
