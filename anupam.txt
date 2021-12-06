@@ -5,3 +5,4 @@ again few random text
 fixed bug 98
 Adding Feature 1
 Adding Feature 2
+<tail>contact details</tail>
