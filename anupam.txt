@@ -1,3 +1,6 @@
+
+New Feature introduced
 some random text
 again few random text
 Adding Feature 1
+Adding Feature 2
