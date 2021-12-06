@@ -1,4 +1,4 @@
-
+<include>Include the following features</include>
 New Feature introduced
 some random text
 again few random text
