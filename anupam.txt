@@ -1,3 +1,4 @@
 some random text
 again few random text
+fixed bug 98
 Adding Feature 1
