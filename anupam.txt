@@ -1,4 +1,4 @@
-
+<include>The following features are being considered to be included in the next release</include>
 New Feature introduced
 some random text
 again few random text
