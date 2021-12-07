@@ -1,3 +1,4 @@
 #config file for our application.
   #log.dir.path=/tmp
 java heap memory =512M
+jave heap memory max = 1024M
