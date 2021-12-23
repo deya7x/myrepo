@@ -1,0 +1,25 @@
+Minikube basic controls
+
+minikube start --driver=virtualbox
+
+minikube dashboard          //starts dashboard
+
+kubectl create deployment hello-minikube --image=nginx
+
+//Exposing a service as a NodePort
+
+kubectl expose deployment hello-minikube --type=NodePort --port=80
+
+minikube makes it easy to open this exposed endpoint in your browser:
+
+minikube service hello-minikube
+minikube service hello-minikube --url
+
+
+
+
+scale a ReplicationController
+kubectl scale replicationcontroller nginx-replication-controller --replicas=3
+
+Edit ReplicationController
+kubectl edit replicationcontroller nginx-replication-controller
