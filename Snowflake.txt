@@ -1,0 +1,95 @@
+Snowflake
+=========================================
+
+create external stage (AWS publicly accessible)
+
+create or replace stage aws_stage url = 's3://deya8x';
+
+list @aws_stage;
+
+copy into customer
+from @aws_stage
+pattern='.*.txt'
+file_format = (type= csv field_delimiter = '|' skip_header=1)
+
+copy into customer_json_raw
+from @aws_stage/customer_data.json
+file_format = (type=json);
+
+Query to array of json objects
+===============================================
+select value:city,
+       value:customer_address,
+       value:customer_id,
+       value:customer_name,
+       value:zipcode,
+       value:email
+from customer_json_raw,lateral flatten(input=>json_string);
+
+
+SnowPipe
+
+create or replace pipe transactions_pipe
+auto_ingest = true 
+as copy into transactions from  @aws_stage
+pattern='.*.txt'
+file_format = (type= csv field_delimiter = '|' skip_header=1)
+
+===============================================================================================================
+
+Time Travel
+
+select current_timestamp;
+alter session set time_zone='UTC';
+
+select * from customer before (timestamp=> '2021-12-28 02:06:45.584'::timestamp);
+
+//10 minutes before
+select * from customer before (timestamp=> '2021-12-28 02:06:45.584'::timestamp);
+
+//pass query id
+select * from customer before(statement=>'01a13f84-0000-2b7e-0000-0000778518fd');
+
+undrop table customer;
+undrop schema addb.public;
+undrop database addb;
+
+===============================================================================================================
+Cloning
+create table customer_copy clone customer;
+create schema new_schema clone public;
+
+//cloning with time travel.
+create table customer_copy1 clone customer before(timestamp=> '2021-12-28 02:06:45.584'::timestamp);
+
+===============================================================================================================
+Data Sharing
+
+Producer side 
+
+create share customer_shared_data;
+grant usage on database addb to share customer_shared_data;
+grant usage on schema addb.public to share customer_shared_data;
+grant select on table addb.public.customer to share customer_shared_data;
+
+show shares;
+
+show grants to share customer_shared_data;
+alter share customer_shared_data add account = '<>';
+
+show grants of share customer_shared_data;
+
+consumer side
+
+show shares;
+
+desc share share_name;
+
+create database database_name from share share_name;
+
+
+create reader account
+
+create managed account reader_account
+admin_name='admin', admin_password='newpass1'
+type='READER';

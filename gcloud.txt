@@ -1,0 +1,18 @@
+gcloud config set compute/zone us-central1-a
+gcloud config set compute/region us-central1
+
+gcloud container clusters create my-first-cluster --num-nodes 1
+
+gcloud compute instances list
+
+gsutil mb -c regional -l asia-south1 gs://deya7x-bucket
+gsutil ls
+gsutil cp -r -p gs://deya7x-asia/* gs://deya7x-usa/
+
+gsutil lifecycle set json.name gs://deya7x
+gsutil lifecycle get gs://deya7x
+
+gcloud auth activate-service-account --key-file json.name
+
+connect a mysql instance using gcloud
+gcloud sql connect my-sql-instance --user=root --quiet
